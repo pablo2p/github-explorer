@@ -79,22 +79,24 @@ const Dashboard: React.FC = () => {
       {inputError && <Error>{inputError}</Error>}
 
       <Repositories>
-        {repositories.map(repository => (
-          <Link
-            key={repository.full_name}
-            to={`/repositories/${repository.full_name}`}
-          >
-            <img
-              src={repository.owner.avatar_url}
-              alt={repository.owner.login}
-            />
-            <div>
-              <strong>{repository.full_name}</strong>
-              <p>{repository.description}</p>
-            </div>
-            <FiChevronRight size={20} />
-          </Link>
-        ))}
+        {repositories
+          .sort((a, b) => (a.full_name > b.full_name ? 1 : -1))
+          .map(repository => (
+            <Link
+              key={repository.full_name}
+              to={`/repositories/${repository.full_name}`}
+            >
+              <img
+                src={repository.owner.avatar_url}
+                alt={repository.owner.login}
+              />
+              <div>
+                <strong>{repository.full_name}</strong>
+                <p>{repository.description}</p>
+              </div>
+              <FiChevronRight size={20} />
+            </Link>
+          ))}
       </Repositories>
     </>
   );
